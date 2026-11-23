@@ -1,0 +1,53 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "Precompile Header (common.h)",
+            "command": "C:\\MinGW\\bin\\g++.exe",
+            "args": [
+                "-x",
+                "c++-header",
+                "config/common.h",
+                "-o",
+                "config/common.h.gch"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "type": "shell",
+            "label": "Build ATM Project",
+            "command": "C:\\MinGW\\bin\\g++.exe",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "-I.",
+                "main.cpp",
+                "helpers/*.cpp",
+                "admin/*.cpp",
+                "user/*.cpp",
+                "-o",
+                "main.exe"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "dependsOn": [
+                "Precompile Header (common.h)"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Precompiles config/common.h and builds all cpp files"
+        }
+    ]
+}

@@ -1,0 +1,7 @@
+{
+    "code-runner.executorMap": {
+        "cpp": "cd $workspaceRoot && g++ -x c++-header config/common.h -o config/common.h.gch && g++ -I. main.cpp helpers/*.cpp admin/*.cpp user/*.cpp -o main.exe && .\\main.exe",
+        "c": "cd $workspaceRoot && gcc $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt"
+    },
+    "code-runner.runInTerminal": true
+}
