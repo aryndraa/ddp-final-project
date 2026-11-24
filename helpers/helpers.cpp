@@ -58,3 +58,32 @@ string getCurrentTimestamp() {
     ss << put_time(localTime, "%Y-%m-%d %H:%M:%S"); 
     return ss.str();
 }
+// Function to format a long long integer as Indonesian Rupiah currency
+string formatRupiah(long long amount) {
+    bool isNegative = amount < 0;
+    string numStr = to_string(isNegative ? -amount : amount);
+    string result;
+
+    int count = 0;
+    for (int i = static_cast<int>(numStr.length()) - 1; i >= 0; --i) {
+        result.push_back(numStr[i]);
+        count++;
+        if (count == 3 && i > 0) {
+            result.push_back('.');
+            count = 0;
+        }
+    }
+
+    if (isNegative) {
+        result.push_back('-');
+    }
+
+    // Reverse the result string
+    for (size_t i = 0, j = result.size() - 1; i < j; ++i, --j) {
+        char temp = result[i];
+        result[i] = result[j];
+        result[j] = temp;
+    }
+
+    return "Rp" + result;
+}

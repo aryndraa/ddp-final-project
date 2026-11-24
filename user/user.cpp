@@ -69,10 +69,48 @@ bool loginUser(AccountManager& accountManager, Account*& loggedInAccount) {
 }
 
 void checkBalance(Account* loggedInAccount) {
+    system("cls");
+    displayHeader("CEK SALDO");
+    if (loggedInAccount == nullptr) {
+        cout << "Data rekening tidak tersedia." << endl;
+        waitEnter();
+        return;
+    }
+    cout << "Nama Pemilik Rekening : " << loggedInAccount->getOwnerName() << endl;
+    cout << "Nomor Rekening        : " << loggedInAccount->getAccountNumber() << endl;
+    cout << "==================================================" << endl;
+    cout << "Saldo Anda: Rp " << formatRupiah(loggedInAccount->getBalance()) << endl;
+    cout << "waktu Akses: " << getCurrentTimestamp() << endl;
+    waitEnter();
     // TODO [Rayxel]: Implementasi cek saldo
 }
 
 void viewUserTransactionHistory(Account* loggedInAccount) {
+    system("cls");
+    displayHeader("RIWAYAT TRANSAKSI");
+    if (loggedInAccount == nullptr) {
+        cout << "Data rekening tidak tersedia." << endl;
+        waitEnter();
+        return;
+    }
+
+    const vector<Transaction>& history = loggedInAccount->getTransactions();
+    if (history.empty()) {
+        cout << "Belum terdapat riwayat transaksi." << endl;
+    } else {
+        for (const auto& trx : history) {
+            cout << "ID Transaksi : " << trx.getTransactionId() << endl;
+            cout << "Jenis        : " << trx.getType() << endl;
+            cout << "Tanggal      : " << trx.getTimestamp()<< endl;
+        int amount = trx.getAmount();
+            cout << "Nominal      : Rp " << formatRupiah(amount) << endl;
+        int balanceAfter = trx.getBalanceAfter();
+            cout << "Saldo Akhir  : Rp " << formatRupiah(balanceAfter) << endl;
+            cout << "Keterangan   : " << trx.getDescription() << endl;
+            cout << "----------------------------------------" << endl;
+        }
+    }
+    waitEnter();
     // TODO [Rayxel]: Implementasi melihat riwayat transaksi user
 }
 

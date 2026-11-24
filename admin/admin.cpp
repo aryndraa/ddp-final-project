@@ -73,6 +73,43 @@ void updateAccount(AccountManager& accountManager) {
 }
 
 void viewAccountTransactions(AccountManager& accountManager) {
+    system("cls");
+    displayHeader("Riwayat transaksi");
+
+    string accountNumber;
+    cout << "Masukkan nomor rekening: ";
+    cin >> accountNumber;
+    cout << "==================================================" << endl;
+
+    Account* account = accountManager.findAccount(accountNumber);
+    if (account == nullptr) {
+        cout << "\nNomor rekening tidak terdaftar." << endl;
+        waitEnter();
+        return;
+    }
+
+    cout << "\nNama Pemilik Rekening : " << account->getOwnerName() << endl;
+    cout << "Nomor Rekening        : " << account->getAccountNumber() << endl;
+    cout << "==================================================" << endl;
+
+    const vector<Transaction>& history = account->getTransactions();
+    if (history.empty()) {
+        cout << "Belum terdapat riwayat transaksi." << endl;
+    } else {
+        for (const auto& trx : history) {
+            cout << "ID Transaksi : " << trx.getTransactionId() << endl;
+            cout << "Jenis        : " << trx.getType() << endl;
+            cout << "Tanggal      : " << trx.getTimestamp() << endl;
+        int amount = trx.getAmount();
+            cout << "Nominal      : Rp " << formatRupiah(amount) << endl;
+        int balanceAfter = trx.getBalanceAfter();
+            cout << "Saldo Akhir  : Rp " << formatRupiah(balanceAfter) << endl;
+            cout << "Keterangan   : " << trx.getDescription() << endl;
+            cout << "----------------------------------------" << endl;
+        }
+    }
+    waitEnter();
+    //TODO [Rayxel]: Implementasi melihat riwayat transaksi melalui admin
     // TODO [Rayxel]: Implementasi melihat riwayat transaksi melalui admin
 }
 
