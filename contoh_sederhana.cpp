@@ -3,7 +3,7 @@
 #include <vector>
 
 using namespace std;
-
+// dedep ngubah oi
 // ==============================================================
 // 1. CLASS & ENKAPSULASI (Private vs Public)
 // ==============================================================
